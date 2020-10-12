@@ -1,16 +1,64 @@
 ﻿using System;
 
+enum ListeExercices
+{
+    ADD_SUBSTRACT,
+    GUESS_GAME
+}
+
 class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine( "Donner le premier chiffre à prendre en compte");
+        Console.WriteLine("Quel exercice voulez vous faire ?");
+        var exo = Console.ReadLine();
+
+        ListeExercices typeExo;
+
+        switch (typeExo)
+        {
+            case ListeExercices.ADD_SUBSTRACT:
+                ExoAddSubstract();
+                break;
+            case ListeExercices.GUESS_GAME:
+                GuessNumber();
+                break;
+            default:
+                break;
+        }
+
+
+    }
+
+    private static void GuessNumber()
+    {
+        //Créer un jeu qui demande à l’utilisateur de deviner 
+        //un nombre entre 0 et 100.
+        //Dans cette version, le nombre sera écrit en dur et défini 
+        //au moment de la compilation
+
+        //Utiliser des fonctions pour les récupérations d’information 
+        //de la part de l’utilisateur et les comparaisons
+
+        //Si le chiffre donné par l'utilisateur est supérieur au chiffre à deviner
+        //dire à l'utilisateur "Trop Grand"
+        //Si il est plus petit lui dire "Trop petit"
+        // Sinon lui dire bravo
+
+        //Faire en sorte qu’à la fin du jeu l’utilisateur 
+        //puisse rejouer si il le souhaite
+
+    }
+
+    private static void ExoAddSubstract()
+    {
+        Console.WriteLine("Donner le premier chiffre à prendre en compte");
         String var = Console.ReadLine();
         //int a = int.Parse(var); pas assez sécuriser, crash l'appli si var vaut "Toto"
         int.TryParse(var, out int a);
-        
-        
-        Console.WriteLine( "Donner le deuxième chiffre chiffre à prendre en compte");
+
+
+        Console.WriteLine("Donner le deuxième chiffre chiffre à prendre en compte");
         var = Console.ReadLine();
         int.TryParse(var, out int b);
 
