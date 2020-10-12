@@ -1,37 +1,68 @@
 ﻿using System;
+using System.Runtime.ExceptionServices;
+using System.Text;
 
 enum ListeExercices
 {
     ADD_SUBSTRACT,
-    GUESS_GAME
+    GUESS_GAME,
+    QUIT
 }
 
 class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Quel exercice voulez vous faire ?");
-        var exo = Console.ReadLine();
-
-        ListeExercices typeExo;
-
-        switch (typeExo)
+        bool quit = false;
+        while (!quit)
         {
-            case ListeExercices.ADD_SUBSTRACT:
-                ExoAddSubstract();
-                break;
-            case ListeExercices.GUESS_GAME:
-                GuessNumber();
-                break;
-            default:
-                break;
-        }
+            StringBuilder question = new StringBuilder("Que voulez vous faire :\n");
+            question.Append("\t-1 Fonctions d'addition / Soustraction\n");
+            question.Append("\t-2 Jeu de devinette\n");
+            question.Append("\t-3 Quitter\n");
+            ListeExercices typeExo = (ListeExercices)(GetUserInput(question.ToString()) - 1);
 
+            switch (typeExo)
+            {
+                case ListeExercices.ADD_SUBSTRACT:
+                    ExoAddSubstract();
+                    break;
+                case ListeExercices.GUESS_GAME:
+                    GuessNumber();
+                    break;
+                case ListeExercices.QUIT:
+                    quit = true;
+                    break;
+                default:
+                    Console.WriteLine("Désolé je n'ai pas compris votre demande");
+                    break;
+            }
+        }
 
     }
 
     private static void GuessNumber()
     {
+        int i = 50;
+        bool found = false;
+        while (!found)
+        {
+            int prop = GetUserInput("Proposer un chiffre");
+            if (prop > i)
+            {
+                Console.WriteLine("Trop grand");
+            }
+            else if (prop < i)
+            {
+                Console.WriteLine("Trop petit");
+            }
+            else
+            {
+                Console.WriteLine("Bravo");
+                found = true;
+            }
+        }
+
         //Créer un jeu qui demande à l’utilisateur de deviner 
         //un nombre entre 0 et 100.
         //Dans cette version, le nombre sera écrit en dur et défini 
@@ -50,17 +81,19 @@ class Program
 
     }
 
-    private static void ExoAddSubstract()
+    static int GetUserInput(String s)
     {
-        Console.WriteLine("Donner le premier chiffre à prendre en compte");
+        Console.WriteLine(s);
         String var = Console.ReadLine();
         //int a = int.Parse(var); pas assez sécuriser, crash l'appli si var vaut "Toto"
-        int.TryParse(var, out int a);
+        int.TryParse(var, out int result);
+        return result;
+    }
 
-
-        Console.WriteLine("Donner le deuxième chiffre chiffre à prendre en compte");
-        var = Console.ReadLine();
-        int.TryParse(var, out int b);
+    private static void ExoAddSubstract()
+    {
+        int a = GetUserInput("Donner le premier chiffre à prendre en compte");
+        int b = GetUserInput("Donner le deuxième chiffre chiffre à prendre en compte");
 
         Addition(a, b);
         Soustraction(a, b);
