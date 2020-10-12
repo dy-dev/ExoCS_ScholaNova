@@ -4,7 +4,15 @@ class Program
 {
     static void Main(string[] args)
     {
-        int a = 5, b = 6;
+        Console.WriteLine( "Donner le premier chiffre à prendre en compte");
+        String var = Console.ReadLine();
+        //int a = int.Parse(var); pas assez sécuriser, crash l'appli si var vaut "Toto"
+        int.TryParse(var, out int a);
+        
+        
+        Console.WriteLine( "Donner le deuxième chiffre chiffre à prendre en compte");
+        var = Console.ReadLine();
+        int.TryParse(var, out int b);
 
         Addition(a, b);
         Soustraction(a, b);
